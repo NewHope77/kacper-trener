@@ -466,8 +466,9 @@
         return '<div class="summary__row"><span>' + esc(p.name) + '<br><small>' + esc(optLabels(l.id, l.opts)) + '</small></span><b>' + money(priceOf(l.id, l.opts)) + '</b></div>';
       }).join('');
       var next = o.kind === 'service'
-        ? '<ol class="next"><li><span><b>Sprawdź e-mail</b><span>Wysłałem ankietę startową: cel, zdrowie, sprzęt i grafik.</span></span></li><li><span><b>Wypełnij ankietę</b><span>Zajmie Ci około 10 minut.</span></span></li><li><span><b>Plan w 3 dni robocze</b><span>Dostaniesz plan i zaproszenie na czat.</span></span></li></ol>'
-        : '<a class="btn btn--accent btn--lg btn--block" href="#" data-demo-dl>' + icon('download') + ' Pobierz plan (PDF)</a><p class="note">Link do pobrania jest też w e-mailu. W wersji demonstracyjnej plik nie jest pobierany.</p>' +
+        ? '<a class="btn btn--accent btn--lg btn--block" href="' + esc(conf.getAttribute('data-form') || '#') + '" target="_blank" rel="noopener">Wypełnij formularz współpracy ' + icon('arrow', 'arr') + '</a>' +
+          '<ol class="next"><li><span><b>Wypełnij formularz</b><span>Cel, zdrowie, sprzęt i grafik — to podstawa Twojego planu.</span></span></li><li><span><b>Plan w kilka dni</b><span>Przygotuję plan treningowy i makro pod Ciebie.</span></span></li><li><span><b>Działamy razem</b><span>Raporty, korekty i stały kontakt ze mną.</span></span></li></ol>'
+        : '<a class="btn btn--accent btn--lg btn--block" href="#" data-demo-dl>' + icon('download') + ' Pobierz plan + arkusz</a><p class="note">Link do pobrania jest też w e-mailu. W wersji demonstracyjnej plik nie jest pobierany.</p>' +
           '<ol class="next"><li><span><b>Zapisz plik</b><span>Na telefonie lub komputerze — link działa 30 dni.</span></span></li><li><span><b>Przeczytaj wstęp</b><span>Wyjaśniam, jak zacząć i jak notować postępy.</span></span></li><li><span><b>Pierwszy trening</b><span>Najlepiej jeszcze w tym tygodniu!</span></span></li></ol>';
       var box = $('[data-c-box]', conf);
       box.innerHTML = '<h2>Twoje zamówienie</h2>' + rows + '<div class="summary__row summary__total"><span>Zapłacono</span><b>' + money(o.total) + '</b></div>' + next;

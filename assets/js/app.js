@@ -247,6 +247,7 @@
     });
     $$('input', form).forEach(function (inp) {
       inp.addEventListener('input', function () { var f = inp.closest('.field'); if (f && inp.checkValidity()) f.classList.remove('invalid'); });
+      inp.addEventListener('change', function () { var c = inp.closest('.check'); if (c && inp.checked) c.classList.remove('invalid'); });
     });
   });
 

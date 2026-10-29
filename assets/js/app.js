@@ -231,7 +231,7 @@
   });
 
   /* ---------- quiz ---------- */
-  var GOAL_LABEL = { redukcja: 'Redukcja', masa: 'Masa i siła', forma: 'Lepsza kondycja' };
+  var GOAL_LABEL = { brzuch: 'Zrzucić brzuch', bol: 'Pozbyć się bólu', sylwetka: 'Zbudować sylwetkę' };
   $$('[data-quiz]').forEach(function (qz) {
     var ans = {};
     var dots = $$('.quiz__dots span', qz);
@@ -246,15 +246,15 @@
       var html;
       if (ans[1] === 'torun') {
         write('kt_goal', GOAL_LABEL[ans[2]], 'session');
-        html = '<div class="quiz__rec"><div class="cover cover--dark" aria-hidden="true"><div class="cover__sheet cover__sheet--back"></div><div class="cover__sheet"><span class="cover__tag">TORUŃ</span><span class="cover__ico">' + icon('pin') + '</span><b class="cover__title">Trening<br>1-na-1</b><span class="cover__meta">lub w parze</span><span class="cover__brand">KACPER<i>.</i></span></div></div>' +
-          '<div><small>Polecam Ci</small><h3>Treningi ze mną w Toruniu</h3><p>Cel: ' + esc(GOAL_LABEL[ans[2]]).toLowerCase() + '. Zacznijmy od bezpłatnej konsultacji — oddzwonię w ciągu 24 h.</p></div>' +
+        html = '<div class="quiz__rec"><div class="cover cover--dark" aria-hidden="true"><div class="cover__sheet cover__sheet--back"></div><div class="cover__sheet"><span class="cover__tag">CHEŁMŻA</span><span class="cover__ico">' + icon('pin') + '</span><b class="cover__title">Trening<br>1-na-1</b><span class="cover__meta">lub DUO</span><span class="cover__brand">KG<i>.</i></span></div></div>' +
+          '<div><small>Polecam Ci</small><h3>Treningi ze mną w Chełmży</h3><p>Cel: ' + esc(GOAL_LABEL[ans[2]]).toLowerCase() + '. Zacznijmy od bezpłatnej konsultacji (0 zł) — trening demo i rozmowa o celu.</p></div>' +
           '<div class="quiz__rec-btns"><a class="btn btn--accent btn--lg" href="' + root + 'index.html#konsultacja" data-goto-lead>Umów konsultację ' + icon('arrow', 'arr') + '</a><button class="quiz__again" type="button">Zacznij od nowa</button></div></div>';
       } else {
-        var id = ans[3] === 'opieka' ? 'prowadzenie-online' : (window.QUIZ_REC || {})[ans[2]] || 'pakiet-trening-dieta';
+        var id = ans[3] === 'opieka' ? 'prowadzenie-online' : (window.QUIZ_REC || {})[ans[2]] || 'plan-treningowy';
         var p = P[id];
-        var why = id === 'prowadzenie-online' ? 'Indywidualny plan i korekty co tydzień — najszybsza droga do celu bez trenera na sali.' :
-          id === 'plan-treningowy' ? 'Do budowy mięśni najważniejszy jest dobrze ułożony trening z progresją.' :
-          'Przy tym celu najlepiej działa połączenie treningu i diety — w pakiecie taniej niż osobno.';
+        var why = id === 'prowadzenie-online' ? 'Plan, makro i stały kontakt ze mną — nie zostajesz sam, a ja poprawiam plan na bieżąco.' :
+          id === 'plan-makro' ? 'Brzuch schodzi głównie dzięki jedzeniu. Wyliczę Twoje makro — jesz to, co lubisz, bez głodówek.' :
+          'Bezpieczne ćwiczenia dobrane do Ciebie, z filmikiem do każdego — wiesz, co robić i jak.';
         html = '<div class="quiz__rec">' + coverHtml(p) + '<div><small>Polecam Ci</small><h3>' + esc(p.name) + '</h3><p>' + why + '</p></div>' +
           '<div class="quiz__rec-btns"><a class="btn btn--accent btn--lg" href="' + root + p.url + '">' + (p.kind === 'service' ? 'od ' : '') + money(p.from) + ' — zobacz ' + icon('arrow', 'arr') + '</a><button class="quiz__again" type="button">Zacznij od nowa</button></div></div>';
       }
@@ -374,14 +374,14 @@
     var form = $('#checkout-form');
     var sum = $('#co-summary');
     var order = read(ORDER_KEY, null, 'session');
-    var DEFAULTS = { miejsce: 'silownia', kcal: '2200' };
     var lines = (order && order.lines || []).filter(function (l) { return P[l.id]; });
     if (!lines.length) {
       co.innerHTML = '<div class="empty-state"><h2>Nie wybrano produktu</h2><p>Wybierz plan lub prowadzenie online, aby złożyć zamówienie.</p><a class="btn btn--accent btn--lg" href="' + root + 'oferta.html#online">Zobacz ofertę</a></div>';
     } else {
       var bumped = false;
       var original = lines.slice();
-      var bumpable = lines.length === 1 && (lines[0].id === 'plan-treningowy' || lines[0].id === 'plan-zywieniowy');
+      var CROSS = { 'plan-treningowy': 'plan-makro', 'plan-makro': 'plan-treningowy' };
+      var extraId = lines.length === 1 ? CROSS[lines[0].id] : null;
       function kind() { return lines.some(function (l) { return P[l.id].kind === 'service'; }) ? 'service' : 'pdf'; }
       function total() { return lines.reduce(function (s, l) { return s + priceOf(l.id, l.opts); }, 0); }
       function render() {
@@ -392,11 +392,10 @@
             '<span class="sum-item__price">' + money(priceOf(l.id, l.opts)) + '</span></div>';
         }).join('');
         var bump = '';
-        if (bumpable) {
-          var pak = P['pakiet-trening-dieta'];
-          var diff = priceOf('pakiet-trening-dieta', {}) - priceOf(original[0].id, original[0].opts);
-          bump = '<label class="bump"><input type="checkbox" data-bump' + (bumped ? ' checked' : '') + '><span><b>Zamień na ' + esc(pak.name) + '</b> — dopłacasz tylko ' + money(diff) + ' i dostajesz też ' +
-            (original[0].id === 'plan-treningowy' ? 'plan żywieniowy' : 'plan treningowy') + '.</span></label>';
+        if (extraId) {
+          var ex = P[extraId];
+          bump = '<label class="bump"><input type="checkbox" data-bump' + (bumped ? ' checked' : '') + '><span><b>Dodaj ' + esc(ex.name) + ' (+' + money(ex.from) + ')</b> — ' +
+            (extraId === 'plan-makro' ? 'trening + jedzenie to najszybsza droga do celu.' : 'z planem treningowym efekty przyjdą szybciej.') + '</span></label>';
         }
         var t = total();
         sum.innerHTML = '<h2>Twoje zamówienie</h2>' + items + bump +
@@ -416,10 +415,8 @@
       sum.addEventListener('change', function (e) {
         if (!e.target.hasAttribute('data-bump')) return;
         bumped = e.target.checked;
-        if (bumped) {
-          var o = original[0].opts;
-          lines = [{ id: 'pakiet-trening-dieta', opts: { miejsce: o.miejsce || DEFAULTS.miejsce, kcal: o.kcal || DEFAULTS.kcal } }];
-        } else lines = original.slice();
+        var first = P[extraId].groups.reduce(function (o, g) { o[g.key] = g.options[0].v; return o; }, {});
+        lines = bumped ? original.concat([{ id: extraId, opts: first }]) : original.slice();
         render();
       });
       render();

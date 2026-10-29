@@ -1,0 +1,16 @@
+index.html
+treningi-torun.html
+oferta.html
+metamorfozy.html
+o-mnie.html
+blog.html
+kontakt.html
+produkt/plan-treningowy.html
+produkt/plan-zywieniowy.html
+produkt/pakiet-trening-dieta.html
+produkt/prowadzenie-online.html
+blog/ile-razy-w-tygodniu-trenowac-na-redukcji.html
+blog/ile-bialka-dziennie.html
+blog/jak-wybrac-trenera-personalnego-torun.html
+regulamin.html
+polityka-prywatnosci.html

@@ -1507,3 +1507,35 @@ a.contact-card:hover { border-color: var(--accent-deep); transform: translateY(-
   .hero h1 { font-size: 33px; }
   .hpath b { font-size: 14.5px; }
 }
+
+/* ===== Hero portrait: blended into the scene, not a sticker ===== */
+.stage.stage--bust { aspect-ratio: auto; height: clamp(480px, 46vw, 660px); max-width: 600px; align-self: end; margin-bottom: -104px; }
+.stage.stage--bust .stage__disc { inset: 6% 6% 22%; opacity: .75; filter: blur(14px); }
+.stage__glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(42% 36% at 50% 30%, rgba(150, 110, 255, .42), transparent 72%),
+              radial-gradient(30% 28% at 78% 62%, rgba(209, 75, 191, .22), transparent 70%),
+              radial-gradient(30% 28% at 20% 66%, rgba(123, 92, 255, .2), transparent 70%);
+  filter: blur(6px);
+}
+/* the glow sits on the wrapper: a mask on the same element would clip it into a visible box */
+.stage.stage--bust .stage__pw {
+  left: 50%; bottom: 0; height: 100%; transform: translateX(-50%);
+  filter: drop-shadow(-10px -4px 22px rgba(140, 100, 255, .34)) drop-shadow(12px -2px 26px rgba(214, 100, 205, .22));
+}
+.stage.stage--bust .stage__person {
+  -webkit-mask-image: linear-gradient(to bottom, #000 66%, rgba(0, 0, 0, .55) 84%, transparent 99%);
+  mask-image: linear-gradient(to bottom, #000 66%, rgba(0, 0, 0, .55) 84%, transparent 99%);
+  filter: contrast(1.04) saturate(1.03);
+}
+.stage.stage--bust .chip--a { top: 14%; left: -2%; }
+.stage.stage--bust .chip--b { top: 44%; bottom: auto; left: auto; right: -2%; }
+@media (max-width: 1040px) {
+  .stage.stage--bust { height: min(100vw, 620px); margin: 18px auto -80px; }
+}
+@media (max-width: 760px) {
+  .stage.stage--bust { height: min(112vw, 520px); margin: 10px auto -52px; }
+  .stage.stage--bust .chip--a { top: 10%; left: -6px; }
+  .stage.stage--bust .chip--b { top: 50%; right: -6px; left: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .stage__glow { filter: none; } }

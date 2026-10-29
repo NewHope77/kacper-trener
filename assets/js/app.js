@@ -180,6 +180,42 @@
     ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) { ba.addEventListener(ev, function () { drag = false; ba.classList.remove('is-drag'); }); });
   });
 
+  /* ---------- swipe rails on phones: dots under horizontal card lists ---------- */
+  var rails = [];
+  $$('.rail').forEach(function (rail) {
+    var items = Array.prototype.slice.call(rail.children);
+    if (items.length < 2) return;
+    var dots = document.createElement('div');
+    dots.className = 'rail-dots';
+    var btns = items.map(function (it, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Pokaż ' + (i + 1) + ' z ' + items.length);
+      b.addEventListener('click', function () {
+        var pad = parseFloat(getComputedStyle(rail).paddingLeft) || 0;
+        rail.scrollTo({ left: it.getBoundingClientRect().left - rail.getBoundingClientRect().left + rail.scrollLeft - pad, behavior: 'smooth' });
+      });
+      dots.appendChild(b);
+      return b;
+    });
+    rail.parentNode.insertBefore(dots, rail.nextSibling);
+    function update() {
+      var pad = parseFloat(getComputedStyle(rail).paddingLeft) || 0, x0 = rail.getBoundingClientRect().left + pad, best = -1, bestD = 1e9;
+      items.forEach(function (it, i) {
+        btns[i].hidden = it.hidden;
+        if (it.hidden) return;
+        var d = Math.abs(it.getBoundingClientRect().left - x0);
+        if (d < bestD) { bestD = d; best = i; }
+      });
+      btns.forEach(function (b, i) { b.classList.toggle('on', i === best); });
+    }
+    var raf = 0;
+    rail.addEventListener('scroll', function () { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+    rails.push(update);
+  });
+
   /* ---------- metamorphoses filter ---------- */
   var mgrid = $('[data-meta-grid]');
   $$('[data-filter]').forEach(function (b) {
@@ -187,6 +223,8 @@
       $$('[data-filter]').forEach(function (x) { x.classList.toggle('on', x === b); });
       var f = b.getAttribute('data-filter');
       $$('[data-goal]', mgrid).forEach(function (el) { el.hidden = f !== 'all' && el.getAttribute('data-goal') !== f; });
+      mgrid.scrollLeft = 0;
+      rails.forEach(function (u) { u(); });
     });
   });
 
@@ -364,6 +402,9 @@
           '<div class="summary__row summary__total"><span>Do zapłaty</span><b>' + money(t) + '</b></div>' +
           '<button class="btn btn--accent btn--lg btn--block" type="submit" form="checkout-form">' + icon('lock') + ' Kupuję i płacę ' + money(t) + '</button>' +
           '<p class="summary__note">' + icon('lock') + '<span>Klikając, składasz zamówienie z obowiązkiem zapłaty. Płatność obsługuje Autopay. Cena jest ceną końcową.</span></p>';
+        var mini = $('#co-mini');
+        if (mini) mini.innerHTML = items;
+        $$('[data-co-total]').forEach(function (el) { el.textContent = money(t); });
         var k = kind();
         $('[data-consent="digital"]', form).hidden = k !== 'pdf';
         $('[data-consent="service"]', form).hidden = k !== 'service';
@@ -442,7 +483,7 @@
   if (mbar) {
     document.body.classList.add('has-mbar');
     var hideFor = $('.buybox') || $('.hero') || $('.page-head') || $('.page-hero');
-    var finalCta = $('.final-cta');
+    var finalCta = mbar.getAttribute('data-hide-when') ? $(mbar.getAttribute('data-hide-when')) : $('.final-cta');
     var heroVisible = true, finalVisible = false;
     function upd() { mbar.classList.toggle('show', !heroVisible && !finalVisible); }
     if ('IntersectionObserver' in window) {

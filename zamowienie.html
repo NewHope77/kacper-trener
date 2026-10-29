@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,700..900&family=Manrope:wght@500..800&family=Caveat:wght@600..700&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css?v=1793266949">
+  <link rel="stylesheet" href="assets/css/style.css?v=1793267512">
 </head>
 <body data-root="" data-bar="none">
 <a class="skip" href="#main">Przejdź do treści</a>
@@ -51,6 +51,7 @@
 </div></section>
 <section><div class="container checkout" data-checkout>
   <form id="checkout-form" novalidate>
+    <div class="co-mini" id="co-mini"></div>
     <div class="co-step"><h2><span>1</span>Twoje dane</h2>
       <div class="form-grid">
         <div class="field"><label for="firstname">Imię *</label><input id="firstname" name="firstname" autocomplete="given-name" required><span class="err">Podaj imię</span></div>
@@ -60,7 +61,7 @@
       </div>
     </div>
     <div class="co-step"><h2><span>2</span>Płatność</h2>
-      <div class="autopay" data-note="Tu podepniemy Autopay — po płatności PDF leci sam na e-mail" data-note-kind="text" data-note-pos="tr"><span class="autopay__logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Autopay</span><small>Bezpieczna płatność — przekierujemy Cię do bramki</small></div>
+      <div class="autopay" data-note="Tu podepniemy Autopay — PDF leci sam na e-mail" data-note-kind="text" data-note-pos="tr"><span class="autopay__logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Autopay</span><small>Bezpieczna płatność — przekierujemy Cię do bramki</small></div>
       <div class="options options--pay" id="pay-options">
         <label class="opt"><input type="radio" name="pay" value="blik" checked><span class="opt__dot"></span><span class="opt__body"><b>BLIK</b><small>kod z aplikacji banku</small></span><svg class="opt__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></label>
         <label class="opt"><input type="radio" name="pay" value="pbl"><span class="opt__dot"></span><span class="opt__body"><b>Przelew online</b><small>wszystkie banki</small></span><svg class="opt__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V10M19 21V10M9 21v-7M15 21v-7M2 10l10-7 10 7z"/></svg></label>
@@ -77,6 +78,7 @@
   </form>
   <aside class="summary" id="co-summary"></aside>
 </div></section>
+<div class="mbar mbar--buy" data-mbar data-hide-when="#co-summary"><div class="mbar__price"><small>Do zapłaty</small><b data-co-total></b></div><button class="btn btn--accent" type="submit" form="checkout-form"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Kupuję i płacę</button></div>
 </main>
 <section class="final-cta"><div class="container final-cta__inner" data-reveal>
   <div><span class="eyebrow">Zacznij dziś</span><h2>Przyszły Ty <span class="hl">Ci za to podziękuje</span></h2>
@@ -105,7 +107,7 @@
       <li><a href="blog.html">Blog</a></li>
     </ul></div>
     <div><h4>Kup online</h4><ul><li><a href="produkt/plan-treningowy.html">Plan treningowy</a></li><li><a href="produkt/plan-zywieniowy.html">Plan żywieniowy</a></li><li><a href="produkt/pakiet-trening-dieta.html">Pakiet trening + dieta</a></li><li><a href="produkt/prowadzenie-online.html">Prowadzenie online</a></li></ul></div>
-    <div data-note="Twoje dane, adres siłowni i social media" data-note-kind="text" data-note-pos="tl"><h4>Kontakt</h4><ul>
+    <div data-note="Twoje dane i social media" data-note-kind="text" data-note-pos="tl"><h4>Kontakt</h4><ul>
       <li><a href="tel:+48600000000">+48 600 000 000</a></li>
       <li><a href="mailto:kontakt@kacper-trener.pl">kontakt@kacper-trener.pl</a></li>
       <li>[Nazwa siłowni], ul. [Ulica 1], Toruń</li>
@@ -125,7 +127,7 @@
   Używam niezbędnych plików cookies, żeby działało zamówienie i zapamiętany motyw. Statystyki odwiedzin włączę tylko za Twoją zgodą. Szczegóły w <a href="polityka-prywatnosci.html#cookies">polityce cookies</a>.
   <div class="cookies__btns"><button class="btn btn--outline" type="button" data-cookies="necessary">Tylko niezbędne</button><button class="btn btn--accent" type="button" data-cookies="all">Akceptuję wszystkie</button></div>
 </div>
-<script src="assets/js/data.js?v=1793266949"></script>
-<script src="assets/js/app.js?v=1793266949"></script>
+<script src="assets/js/data.js?v=1793267512"></script>
+<script src="assets/js/app.js?v=1793267512"></script>
 </body>
 </html>

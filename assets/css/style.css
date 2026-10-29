@@ -1452,7 +1452,7 @@ a.contact-card:hover { border-color: var(--accent-deep); transform: translateY(-
   .dn--ib { bottom: 16px; left: 16px; right: 16px; }
 
   .dn-on .rail-wrap[data-note] { margin-top: 40px; }
-  .stage__pw .dn--itl { top: auto; bottom: 24%; left: 6%; }
+  .stage__pw .dn--itl { top: auto; bottom: 22%; left: auto; right: -56px; max-width: 176px; transform: rotate(2deg); }
   .quiz > .dn, .hero__proof > .dn, .creds > .dn, .stats > .dn, .header .logo > .dn, .hero__where > .dn { display: none !important; }
   .dn-on .quiz[data-note], .dn-on .hero__proof[data-note], .dn-on .creds[data-note], .dn-on .stats[data-note], .dn-on .header .logo[data-note], .dn-on .hero__where[data-note] { outline: 0; }
 

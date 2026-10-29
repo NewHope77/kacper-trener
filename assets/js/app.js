@@ -64,7 +64,9 @@
     var tag = document.createElement('kt-note');
     tag.className = 'dn dn--' + pos;
     tag.setAttribute('aria-hidden', 'true');
-    tag.innerHTML = (kind === 'photo' ? CAM : PEN) + esc(el.getAttribute('data-note')) + SQUIGGLE;
+    var short = el.getAttribute('data-note-short');
+    var text = short && window.matchMedia('(max-width: 760px)').matches ? short : el.getAttribute('data-note');
+    tag.innerHTML = (kind === 'photo' ? CAM : PEN) + esc(text) + SQUIGGLE;
     el.appendChild(tag);
     if (kind === 'photo') ['tl', 'tr', 'bl', 'br'].forEach(function (c) {
       var s = document.createElement('kt-corner');

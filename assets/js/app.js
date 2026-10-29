@@ -53,6 +53,42 @@
       '<span class="cover__meta">' + p.cover[1] + '</span><span class="cover__brand">KACPER<i>.</i></span></div></div>';
   }
 
+  /* ---------- designer notes (demo only): pink tags that show the client what we will replace ---------- */
+  var PEN = '<svg class="dn__pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
+  var CAM = '<svg class="dn__pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h2l1.5-2h7L17 6h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="4"/></svg>';
+  var SQUIGGLE = '<svg class="dn__arrow" viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3c3 9 10 12 16 13s11 5 12 14"/><path d="M26 25l6 6 3-8"/></svg>';
+  $$('[data-note]').forEach(function (el) {
+    var kind = el.getAttribute('data-note-kind') || 'text';
+    var pos = el.getAttribute('data-note-pos') || 'tl';
+    if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+    var tag = document.createElement('kt-note');
+    tag.className = 'dn dn--' + pos;
+    tag.setAttribute('aria-hidden', 'true');
+    tag.innerHTML = (kind === 'photo' ? CAM : PEN) + esc(el.getAttribute('data-note')) + SQUIGGLE;
+    el.appendChild(tag);
+    if (kind === 'photo') ['tl', 'tr', 'bl', 'br'].forEach(function (c) {
+      var s = document.createElement('kt-corner');
+      s.className = 'dn-c dn-c--' + c;
+      el.appendChild(s);
+    });
+  });
+  function notesLabel() {
+    var on = document.documentElement.classList.contains('dn-on');
+    $$('[data-notes-toggle]').forEach(function (b) {
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      var l = $('[data-notes-label]', b);
+      if (l) l.textContent = on ? 'Notatki: wł.' : 'Notatki: wył.';
+    });
+  }
+  $$('[data-notes-toggle]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var on = document.documentElement.classList.toggle('dn-on');
+      try { localStorage.setItem('kt_notes', on ? 'on' : 'off'); } catch (e) {}
+      notesLabel();
+    });
+  });
+  notesLabel();
+
   /* ---------- theme ---------- */
   $$('[data-theme-toggle]').forEach(function (btn) {
     btn.addEventListener('click', function () {

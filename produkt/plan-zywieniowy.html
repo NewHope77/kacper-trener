@@ -12,16 +12,16 @@
   <meta property="og:locale" content="pl_PL">
   <meta name="theme-color" content="#0b0c0a">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-  <script>document.documentElement.classList.add('js');(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+  <script>document.documentElement.classList.add('js');(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();(function(){var on=true;try{on=localStorage.getItem('kt_notes')!=='off'}catch(e){}if(on)document.documentElement.classList.add('dn-on')})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,700..900&family=Manrope:wght@500..800&display=swap">
-  <link rel="stylesheet" href="../assets/css/style.css?v=1793266363">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,700..900&family=Manrope:wght@500..800&family=Caveat:wght@600..700&display=swap">
+  <link rel="stylesheet" href="../assets/css/style.css?v=1793266949">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "Plan żywieniowy", "description": "Jadłospis na 4 tygodnie z prostymi przepisami i listą zakupów na każdy tydzień. Wybierasz kaloryczność, a w środku znajdziesz instrukcję, jak ją dobrać do celu.", "brand": {"@type": "Brand", "name": "Kacper [Nazwisko]"}, "offers": {"@type": "Offer", "priceCurrency": "PLN", "price": "129.00", "availability": "https://schema.org/InStock"}}</script>
 </head>
 <body data-root="../" data-bar="buy">
 <a class="skip" href="#main">Przejdź do treści</a>
-<div class="topbar"><div class="container topbar__inner">
+<div class="draft"><div class="container draft__inner"><span class="draft__txt"><span class="draft__hand">Projekt dla Kacpra</span><span class="draft__long"> · trener personalny Toruń · wersja robocza z 29.10.2026 · przygotował <a href="https://pawelsweb.pl" target="_blank" rel="noopener">pawelsweb.pl</a></span></span><button class="draft__toggle" type="button" data-notes-toggle aria-pressed="true"><span class="draft__sw"></span><span data-notes-label>Notatki: wł.</span></button></div></div><div class="topbar"><div class="container topbar__inner">
   <span>Treningi <span class="nw">1-na-1</span> i duo w Toruniu</span><span>Plany PDF na e-mail od razu po płatności</span><span>BLIK · karta · przelew przez Autopay</span>
 </div></div>
 <header class="header">
@@ -49,7 +49,7 @@
   <ol class="crumbs"><li><a href="../index.html">Strona główna</a></li><li><a href="../oferta.html">Oferta</a></li><li>Plan żywieniowy</li></ol>
 </div></section>
 <section><div class="container pdp">
-  <div class="pdp__media" data-reveal><div class="cover cover--mint cover--lg" aria-hidden="true">
+  <div class="pdp__media" data-reveal data-note="Okładkę planu zaprojektujemy w Twoich kolorach" data-note-kind="text" data-note-pos="ib"><div class="cover cover--mint cover--lg" aria-hidden="true">
   <div class="cover__sheet cover__sheet--back"></div>
   <div class="cover__sheet">
     <span class="cover__tag">PDF</span>
@@ -64,7 +64,7 @@
     <h1>Plan żywieniowy</h1>
     <a class="pdp__rating" href="#opinie"><span class="stars" aria-label="5 na 5 gwiazdek"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z" fill="currentColor" stroke="none"/></svg></span><span><b>5,0</b> · opinie w Google</span></a>
     <p class="pdp__lead">Jadłospis na 4 tygodnie z prostymi przepisami i listą zakupów na każdy tydzień. Wybierasz kaloryczność, a w środku znajdziesz instrukcję, jak ją dobrać do celu.</p>
-    <form class="buybox" data-buy="plan-zywieniowy" action="../zamowienie.html">
+    <form class="buybox" data-buy="plan-zywieniowy" action="../zamowienie.html" data-note="Warianty i ceny ustawiasz sam" data-note-kind="text" data-note-pos="tr">
       <fieldset class="variant"><legend>Kaloryczność</legend><div class="vopts"><label class="vopt"><input type="radio" name="kcal" value="1800" checked><span><b>1800 kcal</b></span></label><label class="vopt"><input type="radio" name="kcal" value="2200"><span><b>2200 kcal</b></span></label><label class="vopt"><input type="radio" name="kcal" value="2600"><span><b>2600 kcal</b></span></label><label class="vopt"><input type="radio" name="kcal" value="3000"><span><b>3000 kcal</b></span></label></div></fieldset>
       <div class="buybox__foot">
         <div class="price price--lg"><small>Cena</small><b data-price>129 zł</b></div>
@@ -93,7 +93,7 @@
   <span class="rating__txt">48 opinii w Google</span>
 </a></div>
   <div class="metas"><article class="meta" data-reveal style="--d:0.00s">
-  <div class="ba" style="--pos:50%">
+  <div class="ba" style="--pos:50%" data-note="Tu Twoje metamorfozy: 2 zdjęcia + wynik — dodajesz sam w panelu" data-note-kind="photo" data-note-pos="ib">
     <img class="ba__img" src="../assets/img/ba/m1-po.svg" alt="Sylwetka po — Anna, 32 lata" width="600" height="800" loading="lazy">
     <div class="ba__before"><img class="ba__img" src="../assets/img/ba/m1-przed.svg" alt="Sylwetka przed — Anna, 32 lata" width="600" height="800" loading="lazy"></div>
     <span class="ba__tag ba__tag--l">Przed</span><span class="ba__tag ba__tag--r">Po</span>
@@ -239,7 +239,7 @@
       <li><a href="../blog.html">Blog</a></li>
     </ul></div>
     <div><h4>Kup online</h4><ul><li><a href="../produkt/plan-treningowy.html">Plan treningowy</a></li><li><a href="../produkt/plan-zywieniowy.html">Plan żywieniowy</a></li><li><a href="../produkt/pakiet-trening-dieta.html">Pakiet trening + dieta</a></li><li><a href="../produkt/prowadzenie-online.html">Prowadzenie online</a></li></ul></div>
-    <div><h4>Kontakt</h4><ul>
+    <div data-note="Twoje dane, adres siłowni i social media" data-note-kind="text" data-note-pos="tl"><h4>Kontakt</h4><ul>
       <li><a href="tel:+48600000000">+48 600 000 000</a></li>
       <li><a href="mailto:kontakt@kacper-trener.pl">kontakt@kacper-trener.pl</a></li>
       <li>[Nazwa siłowni], ul. [Ulica 1], Toruń</li>
@@ -250,7 +250,7 @@
   </div>
   <div class="container footer__bottom">
     <span>© 2026 Kacper [Nazwisko] · Płatności obsługuje Autopay</span>
-    <span>Wersja demonstracyjna — zdjęcia, ceny, opinie, liczby i dane kontaktowe są przykładowe.</span>
+    <span>Wersja robocza dla Kacpra — zdjęcia (AI), ceny, opinie i liczby są poglądowe. Projekt: <a href="https://pawelsweb.pl" target="_blank" rel="noopener">pawelsweb.pl</a></span>
   </div>
 </footer>
 
@@ -259,7 +259,7 @@
   Używam niezbędnych plików cookies, żeby działało zamówienie i zapamiętany motyw. Statystyki odwiedzin włączę tylko za Twoją zgodą. Szczegóły w <a href="../polityka-prywatnosci.html#cookies">polityce cookies</a>.
   <div class="cookies__btns"><button class="btn btn--outline" type="button" data-cookies="necessary">Tylko niezbędne</button><button class="btn btn--accent" type="button" data-cookies="all">Akceptuję wszystkie</button></div>
 </div>
-<script src="../assets/js/data.js?v=1793266363"></script>
-<script src="../assets/js/app.js?v=1793266363"></script>
+<script src="../assets/js/data.js?v=1793266949"></script>
+<script src="../assets/js/app.js?v=1793266949"></script>
 </body>
 </html>

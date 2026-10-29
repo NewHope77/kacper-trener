@@ -12,15 +12,15 @@
   <meta property="og:locale" content="pl_PL">
   <meta name="theme-color" content="#0b0c0a">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <script>document.documentElement.classList.add('js');(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+  <script>document.documentElement.classList.add('js');(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();(function(){var on=true;try{on=localStorage.getItem('kt_notes')!=='off'}catch(e){}if(on)document.documentElement.classList.add('dn-on')})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,700..900&family=Manrope:wght@500..800&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css?v=1793266363">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,700..900&family=Manrope:wght@500..800&family=Caveat:wght@600..700&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css?v=1793266949">
 </head>
 <body data-root="" data-bar="none">
 <a class="skip" href="#main">Przejdź do treści</a>
-<div class="topbar"><div class="container topbar__inner">
+<div class="draft"><div class="container draft__inner"><span class="draft__txt"><span class="draft__hand">Projekt dla Kacpra</span><span class="draft__long"> · trener personalny Toruń · wersja robocza z 29.10.2026 · przygotował <a href="https://pawelsweb.pl" target="_blank" rel="noopener">pawelsweb.pl</a></span></span><button class="draft__toggle" type="button" data-notes-toggle aria-pressed="true"><span class="draft__sw"></span><span data-notes-label>Notatki: wł.</span></button></div></div><div class="topbar"><div class="container topbar__inner">
   <span>Treningi <span class="nw">1-na-1</span> i duo w Toruniu</span><span>Plany PDF na e-mail od razu po płatności</span><span>BLIK · karta · przelew przez Autopay</span>
 </div></div>
 <header class="header">
@@ -60,7 +60,7 @@
       </div>
     </div>
     <div class="co-step"><h2><span>2</span>Płatność</h2>
-      <div class="autopay"><span class="autopay__logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Autopay</span><small>Bezpieczna płatność — przekierujemy Cię do bramki</small></div>
+      <div class="autopay" data-note="Tu podepniemy Autopay — po płatności PDF leci sam na e-mail" data-note-kind="text" data-note-pos="tr"><span class="autopay__logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Autopay</span><small>Bezpieczna płatność — przekierujemy Cię do bramki</small></div>
       <div class="options options--pay" id="pay-options">
         <label class="opt"><input type="radio" name="pay" value="blik" checked><span class="opt__dot"></span><span class="opt__body"><b>BLIK</b><small>kod z aplikacji banku</small></span><svg class="opt__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></label>
         <label class="opt"><input type="radio" name="pay" value="pbl"><span class="opt__dot"></span><span class="opt__body"><b>Przelew online</b><small>wszystkie banki</small></span><svg class="opt__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V10M19 21V10M9 21v-7M15 21v-7M2 10l10-7 10 7z"/></svg></label>
@@ -105,7 +105,7 @@
       <li><a href="blog.html">Blog</a></li>
     </ul></div>
     <div><h4>Kup online</h4><ul><li><a href="produkt/plan-treningowy.html">Plan treningowy</a></li><li><a href="produkt/plan-zywieniowy.html">Plan żywieniowy</a></li><li><a href="produkt/pakiet-trening-dieta.html">Pakiet trening + dieta</a></li><li><a href="produkt/prowadzenie-online.html">Prowadzenie online</a></li></ul></div>
-    <div><h4>Kontakt</h4><ul>
+    <div data-note="Twoje dane, adres siłowni i social media" data-note-kind="text" data-note-pos="tl"><h4>Kontakt</h4><ul>
       <li><a href="tel:+48600000000">+48 600 000 000</a></li>
       <li><a href="mailto:kontakt@kacper-trener.pl">kontakt@kacper-trener.pl</a></li>
       <li>[Nazwa siłowni], ul. [Ulica 1], Toruń</li>
@@ -116,7 +116,7 @@
   </div>
   <div class="container footer__bottom">
     <span>© 2026 Kacper [Nazwisko] · Płatności obsługuje Autopay</span>
-    <span>Wersja demonstracyjna — zdjęcia, ceny, opinie, liczby i dane kontaktowe są przykładowe.</span>
+    <span>Wersja robocza dla Kacpra — zdjęcia (AI), ceny, opinie i liczby są poglądowe. Projekt: <a href="https://pawelsweb.pl" target="_blank" rel="noopener">pawelsweb.pl</a></span>
   </div>
 </footer>
 
@@ -125,7 +125,7 @@
   Używam niezbędnych plików cookies, żeby działało zamówienie i zapamiętany motyw. Statystyki odwiedzin włączę tylko za Twoją zgodą. Szczegóły w <a href="polityka-prywatnosci.html#cookies">polityce cookies</a>.
   <div class="cookies__btns"><button class="btn btn--outline" type="button" data-cookies="necessary">Tylko niezbędne</button><button class="btn btn--accent" type="button" data-cookies="all">Akceptuję wszystkie</button></div>
 </div>
-<script src="assets/js/data.js?v=1793266363"></script>
-<script src="assets/js/app.js?v=1793266363"></script>
+<script src="assets/js/data.js?v=1793266949"></script>
+<script src="assets/js/app.js?v=1793266949"></script>
 </body>
 </html>

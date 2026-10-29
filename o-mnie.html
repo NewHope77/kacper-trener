@@ -12,15 +12,15 @@
   <meta property="og:locale" content="pl_PL">
   <meta name="theme-color" content="#0b0c0a">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <script>document.documentElement.classList.add('js');(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+  <script>document.documentElement.classList.add('js');(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();(function(){var on=true;try{on=localStorage.getItem('kt_notes')!=='off'}catch(e){}if(on)document.documentElement.classList.add('dn-on')})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,700..900&family=Manrope:wght@500..800&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css?v=1793266363">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,700..900&family=Manrope:wght@500..800&family=Caveat:wght@600..700&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css?v=1793266949">
 </head>
 <body data-root="" data-bar="default">
 <a class="skip" href="#main">Przejdź do treści</a>
-<div class="topbar"><div class="container topbar__inner">
+<div class="draft"><div class="container draft__inner"><span class="draft__txt"><span class="draft__hand">Projekt dla Kacpra</span><span class="draft__long"> · trener personalny Toruń · wersja robocza z 29.10.2026 · przygotował <a href="https://pawelsweb.pl" target="_blank" rel="noopener">pawelsweb.pl</a></span></span><button class="draft__toggle" type="button" data-notes-toggle aria-pressed="true"><span class="draft__sw"></span><span data-notes-label>Notatki: wł.</span></button></div></div><div class="topbar"><div class="container topbar__inner">
   <span>Treningi <span class="nw">1-na-1</span> i duo w Toruniu</span><span>Plany PDF na e-mail od razu po płatności</span><span>BLIK · karta · przelew przez Autopay</span>
 </div></div>
 <header class="header">
@@ -51,18 +51,17 @@
     <span class="eyebrow">O mnie</span>
     <h1>Cześć, jestem Kacper — <span class="hl">trener, który mierzy efekty</span></h1>
     <p class="hero__lead">Pomagam zmienić sylwetkę ludziom, którzy mają pracę, rodzinę i mało czasu. Bez skrajności, za to z planem, który da się utrzymać.</p>
-    <div class="stats">
+    <div class="stats" data-note="Twoje liczby" data-note-kind="text" data-note-pos="br">
       <div><b data-count="6" data-suffix="+">0</b><span>lat doświadczenia</span></div>
       <div><b data-count="200" data-suffix="+">0</b><span>podopiecznych</span></div>
       <div><b>5,0</b><span>ocena w Google</span></div>
     </div>
-    <p class="note">Historia, daty, liczby i zdjęcia (AI) przykładowe — uzupełnimy Twoimi.</p>
   </div>
-  <figure class="photo slot--hero"><img src="assets/img/photo/trainer-action.jpg" width="960" height="1280" alt="Kacper podczas treningu siłowego" loading="lazy"></figure>
+  <figure class="photo slot--hero" data-note="Tu Twoje zdjęcie" data-note-kind="photo" data-note-pos="itl"><img src="assets/img/photo/trainer-action.jpg" width="960" height="1280" alt="Kacper podczas treningu siłowego" loading="lazy"></figure>
 </div></section>
 <section class="section"><div class="container split">
   <div data-reveal><span class="eyebrow">Moja droga</span><h2>Jak tu trafiłem</h2><p class="lead-p">Sam przeszedłem drogę od „nie wiem, co robię na siłowni” do planu, który działa. Dziś uczę tego innych.</p></div>
-  <ol class="timeline"><li data-reveal style="--d:0.00s"><span class="tl__year">[2018]</span><div><h3>Pierwsze kroki</h3><p>Zaczynam trenować siłowo i odkrywam, jak bardzo zmienia to głowę i ciało.</p></div></li><li data-reveal style="--d:0.08s"><span class="tl__year">[2020]</span><div><h3>Certyfikat trenera</h3><p>Kurs trenera personalnego i pierwsi podopieczni na sali w Toruniu.</p></div></li><li data-reveal style="--d:0.16s"><span class="tl__year">[2022]</span><div><h3>Dietetyka sportowa</h3><p>Szkolenia z żywienia — plan bez diety to tylko połowa sukcesu.</p></div></li><li data-reveal style="--d:0.24s"><span class="tl__year">[2024]</span><div><h3>Prowadzenie online</h3><p>Zaczynam pracę z osobami z całej Polski — plany i opieka na odległość.</p></div></li></ol>
+  <ol class="timeline" data-note="Twoja historia — opowiesz, my napiszemy" data-note-kind="text" data-note-pos="tr"><li data-reveal style="--d:0.00s"><span class="tl__year">[2018]</span><div><h3>Pierwsze kroki</h3><p>Zaczynam trenować siłowo i odkrywam, jak bardzo zmienia to głowę i ciało.</p></div></li><li data-reveal style="--d:0.08s"><span class="tl__year">[2020]</span><div><h3>Certyfikat trenera</h3><p>Kurs trenera personalnego i pierwsi podopieczni na sali w Toruniu.</p></div></li><li data-reveal style="--d:0.16s"><span class="tl__year">[2022]</span><div><h3>Dietetyka sportowa</h3><p>Szkolenia z żywienia — plan bez diety to tylko połowa sukcesu.</p></div></li><li data-reveal style="--d:0.24s"><span class="tl__year">[2024]</span><div><h3>Prowadzenie online</h3><p>Zaczynam pracę z osobami z całej Polski — plany i opieka na odległość.</p></div></li></ol>
 </div></section>
 <section class="section section--alt"><div class="container">
   <div class="section__head" data-reveal><div><span class="eyebrow">Wartości</span><h2>Jak pracuję</h2></div></div>
@@ -70,7 +69,7 @@
 </div></section>
 <section class="section"><div class="container">
   <div class="section__head" data-reveal><div><span class="eyebrow">Galeria</span><h2>Z sali i z życia</h2></div></div>
-  <div class="gallery">
+  <div class="gallery" data-note="Twoje zdjęcia z sali, z podopiecznymi i certyfikaty" data-note-kind="text" data-note-pos="tl">
     <figure class="photo "><img src="assets/img/photo/trainer-coach.jpg" width="1280" height="960" alt="Trening z podopieczną" loading="lazy"></figure>
     <figure class="photo "><img src="assets/img/photo/trainer-portrait.jpg" width="1024" height="1280" alt="Kacper na sali treningowej" loading="lazy"></figure>
     <figure class="photo "><img src="assets/img/photo/trainer-duo.jpg" width="1280" height="960" alt="Trening w parze" loading="lazy"></figure>
@@ -133,7 +132,7 @@
       <li><a href="blog.html">Blog</a></li>
     </ul></div>
     <div><h4>Kup online</h4><ul><li><a href="produkt/plan-treningowy.html">Plan treningowy</a></li><li><a href="produkt/plan-zywieniowy.html">Plan żywieniowy</a></li><li><a href="produkt/pakiet-trening-dieta.html">Pakiet trening + dieta</a></li><li><a href="produkt/prowadzenie-online.html">Prowadzenie online</a></li></ul></div>
-    <div><h4>Kontakt</h4><ul>
+    <div data-note="Twoje dane, adres siłowni i social media" data-note-kind="text" data-note-pos="tl"><h4>Kontakt</h4><ul>
       <li><a href="tel:+48600000000">+48 600 000 000</a></li>
       <li><a href="mailto:kontakt@kacper-trener.pl">kontakt@kacper-trener.pl</a></li>
       <li>[Nazwa siłowni], ul. [Ulica 1], Toruń</li>
@@ -144,7 +143,7 @@
   </div>
   <div class="container footer__bottom">
     <span>© 2026 Kacper [Nazwisko] · Płatności obsługuje Autopay</span>
-    <span>Wersja demonstracyjna — zdjęcia, ceny, opinie, liczby i dane kontaktowe są przykładowe.</span>
+    <span>Wersja robocza dla Kacpra — zdjęcia (AI), ceny, opinie i liczby są poglądowe. Projekt: <a href="https://pawelsweb.pl" target="_blank" rel="noopener">pawelsweb.pl</a></span>
   </div>
 </footer>
 <div class="mbar" data-mbar><a class="btn btn--outline" href="index.html#konsultacja"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg> Konsultacja</a><a class="btn btn--accent" href="oferta.html#online"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg> Plany online</a></div>
@@ -153,7 +152,7 @@
   Używam niezbędnych plików cookies, żeby działało zamówienie i zapamiętany motyw. Statystyki odwiedzin włączę tylko za Twoją zgodą. Szczegóły w <a href="polityka-prywatnosci.html#cookies">polityce cookies</a>.
   <div class="cookies__btns"><button class="btn btn--outline" type="button" data-cookies="necessary">Tylko niezbędne</button><button class="btn btn--accent" type="button" data-cookies="all">Akceptuję wszystkie</button></div>
 </div>
-<script src="assets/js/data.js?v=1793266363"></script>
-<script src="assets/js/app.js?v=1793266363"></script>
+<script src="assets/js/data.js?v=1793266949"></script>
+<script src="assets/js/app.js?v=1793266949"></script>
 </body>
 </html>

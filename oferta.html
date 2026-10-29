@@ -12,15 +12,15 @@
   <meta property="og:locale" content="pl_PL">
   <meta name="theme-color" content="#0b0c0a">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <script>document.documentElement.classList.add('js');(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+  <script>document.documentElement.classList.add('js');(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();(function(){var on=true;try{on=localStorage.getItem('kt_notes')!=='off'}catch(e){}if(on)document.documentElement.classList.add('dn-on')})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,700..900&family=Manrope:wght@500..800&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css?v=1793266363">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,700..900&family=Manrope:wght@500..800&family=Caveat:wght@600..700&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css?v=1793266949">
 </head>
 <body data-root="" data-bar="default">
 <a class="skip" href="#main">Przejdź do treści</a>
-<div class="topbar"><div class="container topbar__inner">
+<div class="draft"><div class="container draft__inner"><span class="draft__txt"><span class="draft__hand">Projekt dla Kacpra</span><span class="draft__long"> · trener personalny Toruń · wersja robocza z 29.10.2026 · przygotował <a href="https://pawelsweb.pl" target="_blank" rel="noopener">pawelsweb.pl</a></span></span><button class="draft__toggle" type="button" data-notes-toggle aria-pressed="true"><span class="draft__sw"></span><span data-notes-label>Notatki: wł.</span></button></div></div><div class="topbar"><div class="container topbar__inner">
   <span>Treningi <span class="nw">1-na-1</span> i duo w Toruniu</span><span>Plany PDF na e-mail od razu po płatności</span><span>BLIK · karta · przelew przez Autopay</span>
 </div></div>
 <header class="header">
@@ -56,7 +56,7 @@
   <span><b>5,0</b> <span class="stars" aria-label="5 na 5 gwiazdek"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z" fill="currentColor" stroke="none"/></svg></span></span>
   <span class="rating__txt">48 opinii w Google</span>
 </a></div>
-  <div class="prods"><article class="prod" data-reveal style="--d:0.00s">
+  <div class="prods" data-note="Twoje plany, opisy i ceny — zmieniasz sam w WooCommerce" data-note-kind="text" data-note-pos="tl"><article class="prod" data-reveal style="--d:0.00s">
   <a class="prod__media" href="produkt/plan-treningowy.html" tabindex="-1" aria-hidden="true"><div class="cover cover--lime " aria-hidden="true">
   <div class="cover__sheet cover__sheet--back"></div>
   <div class="cover__sheet">
@@ -145,7 +145,7 @@
 </article></div>
 </div></section>
 
-<section class="section--tight"><div class="container"><div class="quiz" data-quiz data-reveal>
+<section class="section--tight"><div class="container"><div class="quiz" data-quiz data-reveal data-note="Pytania i polecenia dopasujemy do Twojej oferty" data-note-kind="text" data-note-pos="itr">
   <div class="quiz__head">
     <div><span class="eyebrow">Dopasuj ofertę</span>
     <h2>Nie wiesz, co wybrać? <span class="hl">3 pytania, 20 sekund.</span></h2></div>
@@ -220,7 +220,7 @@
       <li><a href="blog.html">Blog</a></li>
     </ul></div>
     <div><h4>Kup online</h4><ul><li><a href="produkt/plan-treningowy.html">Plan treningowy</a></li><li><a href="produkt/plan-zywieniowy.html">Plan żywieniowy</a></li><li><a href="produkt/pakiet-trening-dieta.html">Pakiet trening + dieta</a></li><li><a href="produkt/prowadzenie-online.html">Prowadzenie online</a></li></ul></div>
-    <div><h4>Kontakt</h4><ul>
+    <div data-note="Twoje dane, adres siłowni i social media" data-note-kind="text" data-note-pos="tl"><h4>Kontakt</h4><ul>
       <li><a href="tel:+48600000000">+48 600 000 000</a></li>
       <li><a href="mailto:kontakt@kacper-trener.pl">kontakt@kacper-trener.pl</a></li>
       <li>[Nazwa siłowni], ul. [Ulica 1], Toruń</li>
@@ -231,7 +231,7 @@
   </div>
   <div class="container footer__bottom">
     <span>© 2026 Kacper [Nazwisko] · Płatności obsługuje Autopay</span>
-    <span>Wersja demonstracyjna — zdjęcia, ceny, opinie, liczby i dane kontaktowe są przykładowe.</span>
+    <span>Wersja robocza dla Kacpra — zdjęcia (AI), ceny, opinie i liczby są poglądowe. Projekt: <a href="https://pawelsweb.pl" target="_blank" rel="noopener">pawelsweb.pl</a></span>
   </div>
 </footer>
 <div class="mbar" data-mbar><a class="btn btn--outline" href="index.html#konsultacja"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg> Konsultacja</a><a class="btn btn--accent" href="oferta.html#online"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg> Plany online</a></div>
@@ -240,7 +240,7 @@
   Używam niezbędnych plików cookies, żeby działało zamówienie i zapamiętany motyw. Statystyki odwiedzin włączę tylko za Twoją zgodą. Szczegóły w <a href="polityka-prywatnosci.html#cookies">polityce cookies</a>.
   <div class="cookies__btns"><button class="btn btn--outline" type="button" data-cookies="necessary">Tylko niezbędne</button><button class="btn btn--accent" type="button" data-cookies="all">Akceptuję wszystkie</button></div>
 </div>
-<script src="assets/js/data.js?v=1793266363"></script>
-<script src="assets/js/app.js?v=1793266363"></script>
+<script src="assets/js/data.js?v=1793266949"></script>
+<script src="assets/js/app.js?v=1793266949"></script>
 </body>
 </html>

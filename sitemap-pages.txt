@@ -13,3 +13,4 @@ blog/jak-zrzucic-brzuch-bez-glodowki.html
 blog/boje-sie-silowni.html
 regulamin.html
 polityka-prywatnosci.html
+odstapienie-i-reklamacje.html

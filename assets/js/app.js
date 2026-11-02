@@ -27,6 +27,8 @@
   function $$(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   var ICONS = {
+    file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/>',
+    target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
     check: '<path d="M5 12l5 5L20 7"/>',
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
     dumbbell: '<path d="M6.5 6.5v11M17.5 6.5v11M3 9.5v5M21 9.5v5M6.5 12h11"/>',
@@ -43,7 +45,7 @@
   var CHECK_ANIM = '<div class="check-anim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>';
 
   function coverHtml(p) {
-    if (p.kind === 'service') {
+    if (p.look === 'chat') {
       return '<div class="cover cover--phone" aria-hidden="true"><div class="mini-phone"><div class="mini-phone__screen">' +
         '<div class="bubble bubble--in">Jak poszedł dziś trening?</div><div class="bubble bubble--out">Rekord w przysiadzie! 💪</div>' +
         '<div class="mini-phone__bar"><span></span>Raport tygodniowy</div></div></div></div>';
@@ -53,43 +55,16 @@
       '<span class="cover__meta">' + p.cover[1] + '</span><span class="cover__brand">KACPER<i>.</i></span></div></div>';
   }
 
-  /* ---------- designer notes (demo only): pink tags that show the client what we will replace ---------- */
-  var PEN = '<svg class="dn__pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
-  var CAM = '<svg class="dn__pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h2l1.5-2h7L17 6h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="4"/></svg>';
-  var SQUIGGLE = '<svg class="dn__arrow" viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3c3 9 10 12 16 13s11 5 12 14"/><path d="M26 25l6 6 3-8"/></svg>';
-  $$('[data-note]').forEach(function (el) {
-    var kind = el.getAttribute('data-note-kind') || 'text';
-    var pos = el.getAttribute('data-note-pos') || 'tl';
-    if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
-    var tag = document.createElement('kt-note');
-    tag.className = 'dn dn--' + pos;
-    tag.setAttribute('aria-hidden', 'true');
-    var short = el.getAttribute('data-note-short');
-    var text = short && window.matchMedia('(max-width: 760px)').matches ? short : el.getAttribute('data-note');
-    tag.innerHTML = (kind === 'photo' ? CAM : PEN) + esc(text) + SQUIGGLE;
-    el.appendChild(tag);
-    if (kind === 'photo') ['tl', 'tr', 'bl', 'br'].forEach(function (c) {
-      var s = document.createElement('kt-corner');
-      s.className = 'dn-c dn-c--' + c;
-      el.appendChild(s);
+  /* ---------- home offer: two tabs on phones ---------- */
+  $$('[data-tabs]').forEach(function (box) {
+    var btns = $$('[data-tab]', box), cols = $$('.offer2__col', box);
+    btns.forEach(function (b, i) {
+      b.addEventListener('click', function () {
+        btns.forEach(function (x) { x.classList.toggle('on', x === b); });
+        cols.forEach(function (c, j) { c.classList.toggle('is-on', j === i); });
+      });
     });
   });
-  function notesLabel() {
-    var on = document.documentElement.classList.contains('dn-on');
-    $$('[data-notes-toggle]').forEach(function (b) {
-      b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      var l = $('[data-notes-label]', b);
-      if (l) l.textContent = on ? 'Notatki: wł.' : 'Notatki: wył.';
-    });
-  }
-  $$('[data-notes-toggle]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var on = document.documentElement.classList.toggle('dn-on');
-      try { localStorage.setItem('kt_notes', on ? 'on' : 'off'); } catch (e) {}
-      notesLabel();
-    });
-  });
-  notesLabel();
 
   /* ---------- theme ---------- */
   $$('[data-theme-toggle]').forEach(function (btn) {
@@ -142,6 +117,18 @@
       if (p < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
+  }
+
+  /* ---------- training clips: play only while on screen ---------- */
+  var vids = $$('video[data-autoplay]');
+  if (vids.length && 'IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { var pr = en.target.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        else en.target.pause();
+      });
+    }, { threshold: 0.2 });
+    vids.forEach(function (v) { vio.observe(v); });
   }
 
   /* ---------- before / after sliders ---------- */
@@ -244,19 +231,19 @@
       $$('.quiz__q', qz).forEach(function (q) { q.classList.remove('is-active'); });
       dots.forEach(function (d) { d.classList.add('on'); });
       var html;
-      if (ans[1] === 'torun') {
+      if (ans[1] === 'sala') {
         write('kt_goal', GOAL_LABEL[ans[2]], 'session');
         html = '<div class="quiz__rec"><div class="cover cover--dark" aria-hidden="true"><div class="cover__sheet cover__sheet--back"></div><div class="cover__sheet"><span class="cover__tag">CHEŁMŻA</span><span class="cover__ico">' + icon('pin') + '</span><b class="cover__title">Trening<br>1-na-1</b><span class="cover__meta">lub DUO</span><span class="cover__brand">KG<i>.</i></span></div></div>' +
-          '<div><small>Polecam Ci</small><h3>Treningi ze mną w Chełmży</h3><p>Cel: ' + esc(GOAL_LABEL[ans[2]]).toLowerCase() + '. Zacznijmy od bezpłatnej konsultacji (0 zł) — trening demo i rozmowa o celu.</p></div>' +
+          '<div><small>Polecam Ci</small><h3>Treningi ze mną w Chełmży</h3><p>Cel: ' + esc(GOAL_LABEL[ans[2]]).toLowerCase() + '. Zacznijmy od bezpłatnej konsultacji (0 zł): krótki trening demo i rozmowa o tym, czego potrzebujesz.</p></div>' +
           '<div class="quiz__rec-btns"><a class="btn btn--accent btn--lg" href="' + root + 'index.html#konsultacja" data-goto-lead>Umów konsultację ' + icon('arrow', 'arr') + '</a><button class="quiz__again" type="button">Zacznij od nowa</button></div></div>';
       } else {
-        var id = ans[3] === 'opieka' ? 'prowadzenie-online' : (window.QUIZ_REC || {})[ans[2]] || 'plan-treningowy';
+        var id = ans[3] === 'opieka' ? 'prowadzenie-online' : (ans[3] === 'dopasowany' || ans[2] === 'bol') ? 'plan-indywidualny' : 'gotowy-plan-treningowy';
         var p = P[id];
-        var why = id === 'prowadzenie-online' ? 'Plan, makro i stały kontakt ze mną — nie zostajesz sam, a ja poprawiam plan na bieżąco.' :
-          id === 'plan-makro' ? 'Brzuch schodzi głównie dzięki jedzeniu. Wyliczę Twoje makro — jesz to, co lubisz, bez głodówek.' :
-          'Bezpieczne ćwiczenia dobrane do Ciebie, z filmikiem do każdego — wiesz, co robić i jak.';
+        var why = id === 'prowadzenie-online' ? 'Plan, kontrola postępów i stały kontakt ze mną. Nie zostajesz sam/-a, a ja poprawiam plan na bieżąco.' :
+          id === 'plan-indywidualny' ? (ans[2] === 'bol' && ans[3] !== 'dopasowany' ? 'Przy bólu lepiej nie brać planu z półki. Rozpiszę ćwiczenia pod Ciebie i Twoje ograniczenia.' : 'Plan rozpisany pod Twoją sylwetkę i możliwości, z filmikiem do każdego ćwiczenia.') :
+          'Wybierasz plan dla kobiet, dla mężczyzn albo domowy i od razu wiesz, co robić na każdym treningu.';
         html = '<div class="quiz__rec">' + coverHtml(p) + '<div><small>Polecam Ci</small><h3>' + esc(p.name) + '</h3><p>' + why + '</p></div>' +
-          '<div class="quiz__rec-btns"><a class="btn btn--accent btn--lg" href="' + root + p.url + '">' + (p.kind === 'service' ? 'od ' : '') + money(p.from) + ' — zobacz ' + icon('arrow', 'arr') + '</a><button class="quiz__again" type="button">Zacznij od nowa</button></div></div>';
+          '<div class="quiz__rec-btns"><a class="btn btn--accent btn--lg" href="' + root + p.url + '">' + (p.multi ? 'od ' : '') + money(p.from) + ': zobacz ' + icon('arrow', 'arr') + '</a><button class="quiz__again" type="button">Zacznij od nowa</button></div></div>';
       }
       res.innerHTML = html;
       res.hidden = false;
@@ -270,7 +257,7 @@
         var q = +b.closest('.quiz__q').getAttribute('data-q');
         ans[q] = b.getAttribute('data-a');
         if (q === 1) show(2);
-        else if (q === 2) { if (ans[1] === 'torun') result(); else show(3); }
+        else if (q === 2) { if (ans[1] === 'sala') result(); else show(3); }
         else result();
       });
     });
@@ -318,8 +305,8 @@
       var name = $('input[name="imie"]', form).value.trim();
       var cel = $('input[name="cel"]:checked', form).value, forma = $('input[name="forma"]:checked', form).value;
       form.innerHTML = '<div class="done-msg">' + CHECK_ANIM + '<h3>Dzięki, ' + esc(name) + '!</h3>' +
-        '<p>Oddzwonię w ciągu 24 godzin, żeby umówić bezpłatną konsultację.<br><b>Cel:</b> ' + esc(cel) + ' · <b>Forma:</b> ' + esc(forma) + '</p>' +
-        '<p class="note">Wersja demonstracyjna — zgłoszenie nie zostało wysłane. W wersji docelowej trafi na Twój e-mail i telefon.</p></div>';
+        '<p>Oddzwonię, gdy tylko skończę trening, zwykle w ciągu 24 godzin, i umówimy bezpłatną konsultację.<br><b>Cel:</b> ' + esc(cel) + ' · <b>Forma:</b> ' + esc(forma) + '</p>' +
+        '<p class="note">Wersja demonstracyjna: zgłoszenie nie zostało wysłane. W wersji docelowej trafi na e-mail trenera.</p></div>';
     });
     $$('input', form).forEach(function (inp) {
       inp.addEventListener('input', function () { var f = inp.closest('.field'); if (f && inp.checkValidity()) f.classList.remove('invalid'); });
@@ -377,32 +364,24 @@
     var lines = (order && order.lines || []).filter(function (l) { return P[l.id]; });
     if (!lines.length) {
       co.innerHTML = '<div class="empty-state"><h2>Nie wybrano produktu</h2><p>Wybierz plan lub prowadzenie online, aby złożyć zamówienie.</p><a class="btn btn--accent btn--lg" href="' + root + 'oferta.html#online">Zobacz ofertę</a></div>';
+      var coBar = $('[data-mbar]');
+      if (coBar) coBar.remove();
     } else {
-      var bumped = false;
-      var original = lines.slice();
-      var CROSS = { 'plan-treningowy': 'plan-makro', 'plan-makro': 'plan-treningowy' };
-      var extraId = lines.length === 1 ? CROSS[lines[0].id] : null;
       function kind() { return lines.some(function (l) { return P[l.id].kind === 'service'; }) ? 'service' : 'pdf'; }
       function total() { return lines.reduce(function (s, l) { return s + priceOf(l.id, l.opts); }, 0); }
       function render() {
         var items = lines.map(function (l) {
           var p = P[l.id];
           return '<div class="sum-item"><div class="sum-item__media">' + coverHtml(p) + '</div><div><b>' + esc(p.name) + '</b><small>' + esc(optLabels(l.id, l.opts)) + '</small>' +
-            '<small>' + (p.kind === 'service' ? 'Ankieta startowa na e-mail od razu' : 'PDF na e-mail od razu po płatności') + '</small></div>' +
+            '<small>' + (p.kind === 'service' ? 'Formularz startowy na e-mail od razu' : 'PDF na e-mail od razu po płatności') + '</small></div>' +
             '<span class="sum-item__price">' + money(priceOf(l.id, l.opts)) + '</span></div>';
         }).join('');
-        var bump = '';
-        if (extraId) {
-          var ex = P[extraId];
-          bump = '<label class="bump"><input type="checkbox" data-bump' + (bumped ? ' checked' : '') + '><span><b>Dodaj ' + esc(ex.name) + ' (+' + money(ex.from) + ')</b> — ' +
-            (extraId === 'plan-makro' ? 'trening + jedzenie to najszybsza droga do celu.' : 'z planem treningowym efekty przyjdą szybciej.') + '</span></label>';
-        }
         var t = total();
-        sum.innerHTML = '<h2>Twoje zamówienie</h2>' + items + bump +
+        sum.innerHTML = '<h2>Twoje zamówienie</h2>' + items +
           '<div class="summary__row"><span>Dostawa</span><b>e-mail · 0 zł</b></div>' +
           '<div class="summary__row summary__total"><span>Do zapłaty</span><b>' + money(t) + '</b></div>' +
           '<button class="btn btn--accent btn--lg btn--block" type="submit" form="checkout-form">' + icon('lock') + ' Kupuję i płacę ' + money(t) + '</button>' +
-          '<p class="summary__note">' + icon('lock') + '<span>Klikając, składasz zamówienie z obowiązkiem zapłaty. Płatność obsługuje Autopay. Cena jest ceną końcową.</span></p>';
+          '<p class="summary__note">' + icon('lock') + '<span>Klikając, składasz zamówienie z obowiązkiem zapłaty. Płatność obsługuje bezpieczna bramka. Cena jest ceną końcową.</span></p>';
         var mini = $('#co-mini');
         if (mini) mini.innerHTML = items;
         $$('[data-co-total]').forEach(function (el) { el.textContent = money(t); });
@@ -412,13 +391,6 @@
         $('#phone').required = k === 'service';
         $('[data-phone-req]', form).textContent = k === 'service' ? '*' : '(opcjonalnie)';
       }
-      sum.addEventListener('change', function (e) {
-        if (!e.target.hasAttribute('data-bump')) return;
-        bumped = e.target.checked;
-        var first = P[extraId].groups.reduce(function (o, g) { o[g.key] = g.options[0].v; return o; }, {});
-        lines = bumped ? original.concat([{ id: extraId, opts: first }]) : original.slice();
-        render();
-      });
       render();
       form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -467,7 +439,7 @@
       }).join('');
       var next = o.kind === 'service'
         ? '<a class="btn btn--accent btn--lg btn--block" href="' + esc(conf.getAttribute('data-form') || '#') + '" target="_blank" rel="noopener">Wypełnij formularz współpracy ' + icon('arrow', 'arr') + '</a>' +
-          '<ol class="next"><li><span><b>Wypełnij formularz</b><span>Cel, zdrowie, sprzęt i grafik — to podstawa Twojego planu.</span></span></li><li><span><b>Plan w kilka dni</b><span>Przygotuję plan treningowy i makro pod Ciebie.</span></span></li><li><span><b>Działamy razem</b><span>Raporty, korekty i stały kontakt ze mną.</span></span></li></ol>'
+          '<ol class="next"><li><span><b>Wypełnij formularz</b><span>Cel, zdrowie, sprzęt i grafik: to podstawa Twojego planu.</span></span></li><li><span><b>Plan w kilka dni</b><span>Rozpiszę plan pod Ciebie i wyślę go na e-mail.</span></span></li><li><span><b>' + (o.lines.some(function (l) { return l.id === 'prowadzenie-online'; }) ? 'Działamy razem</b><span>Raporty, korekty i stały kontakt ze mną.' : 'Zaczynasz</b><span>Masz pytania do planu? Napisz, odpowiem.') + '</span></span></li></ol>'
         : '<a class="btn btn--accent btn--lg btn--block" href="#" data-demo-dl>' + icon('download') + ' Pobierz plan + arkusz</a><p class="note">Link do pobrania jest też w e-mailu. W wersji demonstracyjnej plik nie jest pobierany.</p>' +
           '<ol class="next"><li><span><b>Zapisz plik</b><span>Na telefonie lub komputerze — link działa 30 dni.</span></span></li><li><span><b>Przeczytaj wstęp</b><span>Wyjaśniam, jak zacząć i jak notować postępy.</span></span></li><li><span><b>Pierwszy trening</b><span>Najlepiej jeszcze w tym tygodniu!</span></span></li></ol>';
       var box = $('[data-c-box]', conf);

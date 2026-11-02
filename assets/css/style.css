@@ -1748,3 +1748,9 @@ a.contact-card:hover { border-color: var(--accent-deep); transform: translateY(-
 .lead__trust--2 { display: grid; gap: 5px; }
 .lead__trust--2 span { display: flex; align-items: center; gap: 7px; }
 .lead__trust--2 svg { flex: none; }
+
+/* v5: live course photos */
+.livecourses { display: grid; grid-template-columns: repeat(2, minmax(0, 340px)); gap: 20px; }
+.livecourses figcaption { margin-top: 10px; font-size: 14.5px; color: var(--muted); }
+.livecourses figcaption b { display: block; color: var(--heading); font-size: 16px; }
+@media (max-width: 760px) { .livecourses { gap: 12px; } .livecourses figcaption { font-size: 13px; } .livecourses figcaption b { font-size: 14.5px; } }

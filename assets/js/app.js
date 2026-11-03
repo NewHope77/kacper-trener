@@ -44,15 +44,15 @@
   }
   var CHECK_ANIM = '<div class="check-anim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>';
 
-  function coverHtml(p) {
+  function coverHtml(p, opts) {
+    var img = p.img;
+    (p.groups || []).forEach(function (g) { g.options.forEach(function (o) { if (opts && o.img && opts[g.key] === o.v) img = o.img; }); });
     if (p.look === 'chat') {
       return '<div class="cover cover--phone" aria-hidden="true"><div class="mini-phone"><div class="mini-phone__screen">' +
-        '<div class="bubble bubble--in">Jak poszedł dziś trening?</div><div class="bubble bubble--out">Rekord w przysiadzie! 💪</div>' +
+        '<div class="bubble bubble--in">Jak minął tydzień? Ile cm udało się zrzucić?</div><div class="bubble bubble--out">Kolejne −2 cm w talii, wszystko super!</div>' +
         '<div class="mini-phone__bar"><span></span>Raport tygodniowy</div></div></div></div>';
     }
-    return '<div class="cover cover--' + p.tone + '" aria-hidden="true"><div class="cover__sheet cover__sheet--back"></div><div class="cover__sheet">' +
-      '<span class="cover__tag">PDF</span><span class="cover__ico">' + icon(p.icon) + '</span><b class="cover__title">' + p.cover[0] + '</b>' +
-      '<span class="cover__meta">' + p.cover[1] + '</span><span class="cover__brand">KACPER<i>.</i></span></div></div>';
+    return '<div class="pcover" aria-hidden="true"><img src="' + root + 'assets/img/real/' + img + '" alt=""><span class="pcover__tag">' + esc(p.tag) + '</span><b class="pcover__title">' + esc(p.cover[0]) + '</b></div>';
   }
 
   /* ---------- home offer: two tabs on phones ---------- */
@@ -217,8 +217,26 @@
     });
   });
 
+  /* ---------- product page: the picture follows the chosen plan ---------- */
+  $$('[data-buy]').forEach(function (f) {
+    var data = P[f.getAttribute('data-buy')];
+    var pic = $('.pdp__media [data-cover-img]'), title = $('.pdp__media [data-cover-title]');
+    if (!data || !pic) return;
+    $$('input[type="radio"]', f).forEach(function (i) {
+      i.addEventListener('change', function () {
+        data.groups.forEach(function (g) {
+          g.options.forEach(function (o) {
+            if (g.key !== i.name || o.v !== i.value || !o.img) return;
+            pic.src = root + 'assets/img/real/' + o.img;
+            if (title) title.textContent = o.note || data.cover[0];
+          });
+        });
+      });
+    });
+  });
+
   /* ---------- quiz ---------- */
-  var GOAL_LABEL = { brzuch: 'Zrzucić brzuch', bol: 'Pozbyć się bólu', sylwetka: 'Zbudować sylwetkę' };
+  var GOAL_LABEL = { start: 'Zacząć się ruszać', brzuch: 'Zrzucić brzuch', bol: 'Pozbyć się bólu', sylwetka: 'Zbudować sylwetkę' };
   $$('[data-quiz]').forEach(function (qz) {
     var ans = {};
     var dots = $$('.quiz__dots span', qz);
@@ -233,8 +251,8 @@
       var html;
       if (ans[1] === 'sala') {
         write('kt_goal', GOAL_LABEL[ans[2]], 'session');
-        html = '<div class="quiz__rec"><div class="cover cover--dark" aria-hidden="true"><div class="cover__sheet cover__sheet--back"></div><div class="cover__sheet"><span class="cover__tag">CHEŁMŻA</span><span class="cover__ico">' + icon('pin') + '</span><b class="cover__title">Trening<br>1-na-1</b><span class="cover__meta">lub DUO</span><span class="cover__brand">KG<i>.</i></span></div></div>' +
-          '<div><small>Polecam Ci</small><h3>Treningi ze mną w Chełmży</h3><p>Cel: ' + esc(GOAL_LABEL[ans[2]]).toLowerCase() + '. Zacznijmy od bezpłatnej konsultacji (0 zł): krótki trening demo i rozmowa o tym, czego potrzebujesz.</p></div>' +
+        html = '<div class="quiz__rec"><div class="pcover" aria-hidden="true"><img src="' + root + 'assets/img/real/praca-2.jpg" alt=""><span class="pcover__tag">Chełmża</span><b class="pcover__title">Trening 1-na-1 lub Duo</b></div>' +
+          '<div><small>Polecam Ci</small><h3>Treningi ze mną w Chełmży</h3><p>Zacznijmy od bezpłatnej konsultacji: krótki trening i rozmowa o tym, czego potrzebujesz i co chcesz zmienić.</p></div>' +
           '<div class="quiz__rec-btns"><a class="btn btn--accent btn--lg" href="' + root + 'index.html#konsultacja" data-goto-lead>Umów konsultację ' + icon('arrow', 'arr') + '</a><button class="quiz__again" type="button">Zacznij od nowa</button></div></div>';
       } else {
         var id = ans[3] === 'opieka' ? 'prowadzenie-online' : (ans[3] === 'dopasowany' || ans[2] === 'bol') ? 'plan-indywidualny' : 'gotowy-plan-treningowy';
@@ -305,7 +323,7 @@
       var name = $('input[name="imie"]', form).value.trim();
       var cel = $('input[name="cel"]:checked', form).value, forma = $('input[name="forma"]:checked', form).value;
       form.innerHTML = '<div class="done-msg">' + CHECK_ANIM + '<h3>Dzięki, ' + esc(name) + '!</h3>' +
-        '<p>Oddzwonię, gdy tylko skończę trening, zwykle w ciągu 24 godzin, i umówimy bezpłatną konsultację.<br><b>Cel:</b> ' + esc(cel) + ' · <b>Forma:</b> ' + esc(forma) + '</p>' +
+        '<p>Oddzwonię do 48 godzin, zwykle tego samego dnia, i umówimy bezpłatną konsultację.<br><b>Cel:</b> ' + esc(cel) + ' · <b>Forma:</b> ' + esc(forma) + '</p>' +
         '<p class="note">Wersja demonstracyjna: zgłoszenie nie zostało wysłane. W wersji docelowej trafi na e-mail trenera.</p></div>';
     });
     $$('input', form).forEach(function (inp) {
@@ -372,8 +390,8 @@
       function render() {
         var items = lines.map(function (l) {
           var p = P[l.id];
-          return '<div class="sum-item"><div class="sum-item__media">' + coverHtml(p) + '</div><div><b>' + esc(p.name) + '</b><small>' + esc(optLabels(l.id, l.opts)) + '</small>' +
-            '<small>' + (p.kind === 'service' ? 'Formularz startowy na e-mail od razu' : 'PDF na e-mail od razu po płatności') + '</small></div>' +
+          return '<div class="sum-item"><div class="sum-item__media">' + coverHtml(p, l.opts) + '</div><div><b>' + esc(p.name) + '</b><small>' + esc(optLabels(l.id, l.opts)) + '</small>' +
+            '<small>' + (p.kind === 'service' ? 'Formularz startowy na e-mail od razu' : 'Arkusz i poradnik PDF na e-mail od razu po płatności') + '</small></div>' +
             '<span class="sum-item__price">' + money(priceOf(l.id, l.opts)) + '</span></div>';
         }).join('');
         var t = total();
@@ -439,9 +457,9 @@
       }).join('');
       var next = o.kind === 'service'
         ? '<a class="btn btn--accent btn--lg btn--block" href="' + esc(conf.getAttribute('data-form') || '#') + '" target="_blank" rel="noopener">Wypełnij formularz współpracy ' + icon('arrow', 'arr') + '</a>' +
-          '<ol class="next"><li><span><b>Wypełnij formularz</b><span>Cel, zdrowie, sprzęt i grafik: to podstawa Twojego planu.</span></span></li><li><span><b>Plan w kilka dni</b><span>Rozpiszę plan pod Ciebie i wyślę go na e-mail.</span></span></li><li><span><b>' + (o.lines.some(function (l) { return l.id === 'prowadzenie-online'; }) ? 'Działamy razem</b><span>Raporty, korekty i stały kontakt ze mną.' : 'Zaczynasz</b><span>Masz pytania do planu? Napisz, odpowiem.') + '</span></span></li></ol>'
-        : '<a class="btn btn--accent btn--lg btn--block" href="#" data-demo-dl>' + icon('download') + ' Pobierz plan + arkusz</a><p class="note">Link do pobrania jest też w e-mailu. W wersji demonstracyjnej plik nie jest pobierany.</p>' +
-          '<ol class="next"><li><span><b>Zapisz plik</b><span>Na telefonie lub komputerze — link działa 30 dni.</span></span></li><li><span><b>Przeczytaj wstęp</b><span>Wyjaśniam, jak zacząć i jak notować postępy.</span></span></li><li><span><b>Pierwszy trening</b><span>Najlepiej jeszcze w tym tygodniu!</span></span></li></ol>';
+          '<ol class="next"><li><span><b>Wypełnij formularz</b><span>Cel, zdrowie, sprzęt i grafik: to podstawa Twojego planu.</span></span></li><li><span><b>Plan w arkuszu Google</b><span>Rozpiszę plan pod Ciebie i wyślę go na e-mail (Plan Indywidualny: maksymalnie 7 dni roboczych).</span></span></li><li><span><b>' + (o.lines.some(function (l) { return l.id === 'prowadzenie-online'; }) ? 'Działamy razem</b><span>Raporty, korekty i stały kontakt ze mną.' : 'Zaczynasz</b><span>Masz pytania do planu? Napisz, odpowiem.') + '</span></span></li></ol>'
+        : '<a class="btn btn--accent btn--lg btn--block" href="#" data-demo-dl>' + icon('download') + ' Otwórz arkusz i poradnik PDF</a><p class="note">Link do pobrania jest też w e-mailu. W wersji demonstracyjnej plik nie jest pobierany.</p>' +
+          '<ol class="next"><li><span><b>Skopiuj arkusz</b><span>Otwórz link i zapisz kopię na swoim koncie Google.</span></span></li><li><span><b>Przeczytaj poradnik PDF</b><span>Wyjaśniam, jak zacząć i jak notować postępy.</span></span></li><li><span><b>Pierwszy trening</b><span>Najlepiej jeszcze w tym tygodniu!</span></span></li></ol>';
       var box = $('[data-c-box]', conf);
       box.innerHTML = '<h2>Twoje zamówienie</h2>' + rows + '<div class="summary__row summary__total"><span>Zapłacono</span><b>' + money(o.total) + '</b></div>' + next;
       box.hidden = false;

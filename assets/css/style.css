@@ -1776,8 +1776,6 @@ a.contact-card:hover { border-color: var(--accent-deep); transform: translateY(-
 .packs span { color: var(--muted); }
 .packs em { font-style: normal; font-weight: 800; color: var(--heading); white-space: nowrap; }
 .video--dim video { filter: brightness(.9); }
-.cover--phone { width: 142px; height: 212px; }
-.mini-phone__screen { font-size: 9.5px; }
 @media (max-width: 560px) {
   .quiz__rec .pcover { margin: 0 auto 6px; }
 }
@@ -1793,7 +1791,6 @@ a.contact-card:hover { border-color: var(--accent-deep); transform: translateY(-
 .cover--lg .sheet { border-radius: 12px; }
 .cover--lg .sheet__head { padding: 7px 10px; }
 .cover--lg .sheet__row { padding: 6px 10px; }
-.quiz__rec .cover--phone { width: 132px; height: 196px; }
 .sum-item__media { background: radial-gradient(circle at 30% 20%, #6b2fd6, #120c20 72%); color: #fff; }
 .sum-item__ico { display: grid; place-items: center; }
 .sum-item__ico svg { width: 30px; height: 30px; }
@@ -1803,8 +1800,51 @@ a.contact-card:hover { border-color: var(--accent-deep); transform: translateY(-
 @media (max-width: 760px) {
   .page-home .stage.stage--bust .chip--b { left: auto; right: -6px; max-width: 118px; }
 }
+
+/* real iPhone proportions (19.5:9): titanium frame, side buttons, Dynamic Island, status bar, home indicator */
+.cover--phone, .prod .cover--phone { width: 150px; height: 318px; transform: rotate(-4deg); }
+.mini-phone { position: absolute; inset: 0; border-radius: 27px; padding: 5px; background: linear-gradient(145deg, #a2a4a9 0%, #4a4b50 22%, #1b1b1e 55%, #55565b 82%, #8f9196 100%); box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .28), 0 26px 38px -14px rgba(0, 0, 0, .6); }
+.mini-phone::before { content: ""; position: absolute; right: -2px; top: 27%; width: 2.5px; height: 16%; border-radius: 0 2px 2px 0; background: #5c5d62; }
+.mini-phone::after { content: ""; position: absolute; left: -2px; top: 17%; width: 2.5px; height: 26%; border-radius: 2px 0 0 2px; background: linear-gradient(#5c5d62 0 14%, transparent 14% 28%, #5c5d62 28% 60%, transparent 60% 68%, #5c5d62 68% 100%); }
+.mini-phone__screen, .cover--lg .mini-phone__screen { position: relative; height: 100%; display: flex; flex-direction: column; gap: 6px; padding: 0 7px 15px; border-radius: 22px; background: #f4f2f8; color: #1c1530; font-size: 10px; line-height: 1.25; overflow: hidden; }
+.mini-phone__screen::after { content: ""; position: absolute; left: 50%; bottom: 5px; width: 36%; height: 3px; border-radius: 3px; background: #1c1530; transform: translateX(-50%); }
+.mini-phone__status { flex: none; display: flex; align-items: center; justify-content: space-between; height: 27px; padding: 3px 7px 0; font-size: 9px; color: #1c1530; }
+.mini-phone__status b { font-weight: 800; }
+.mini-phone__status svg { width: 21px; height: 8px; }
+.mini-phone__island { position: absolute; top: 6px; left: 50%; width: 34%; height: 15px; border-radius: 15px; background: #000; transform: translateX(-50%); }
+.chat-head { flex: none; display: flex; flex-direction: column; align-items: center; padding-bottom: 5px; border-bottom: 1px solid rgba(28, 21, 48, .1); }
+.chat-head b { font-weight: 800; }
+.chat-head small { font-size: .8em; color: #6b6480; }
+.mini-phone__bar { flex: none; margin-top: auto; }
+.prod__media:has(.cover--phone) { height: 350px; }
+.cover--phone.cover--lg { width: 210px; height: 446px; }
+.cover--lg .mini-phone { border-radius: 38px; padding: 7px; }
+.cover--lg .mini-phone__screen { padding: 0 10px 21px; gap: 9px; border-radius: 31px; font-size: 13.5px; }
+.cover--lg .mini-phone__screen::after { bottom: 7px; height: 4px; }
+.cover--lg .mini-phone__status { height: 38px; padding: 4px 10px 0; font-size: 12.5px; }
+.cover--lg .mini-phone__status svg { width: 29px; height: 11px; }
+.cover--lg .mini-phone__island { top: 9px; height: 21px; border-radius: 21px; }
+.quiz__rec .cover--phone { width: 122px; height: 258px; }
+.quiz__rec .mini-phone { border-radius: 22px; padding: 4px; }
+.quiz__rec .mini-phone__screen { padding: 0 5px 11px; gap: 4px; border-radius: 18px; font-size: 8.5px; }
+.quiz__rec .mini-phone__status { height: 22px; font-size: 7.5px; padding: 2px 5px 0; }
+.quiz__rec .mini-phone__status svg { width: 16px; height: 6px; }
+.quiz__rec .mini-phone__island { top: 5px; height: 11px; }
+.quiz__rec .sheet__row:nth-child(n+5) { display: none; }
+.quiz__rec .mini-phone__bar { font-size: 7.5px; padding: 4px 5px; }
+.pdp__media:has(.cover--phone) { aspect-ratio: 1; }
+@media (max-width: 1040px) {
+  .pdp__media:has(.cover--phone) { aspect-ratio: auto; height: 400px; }
+  .cover--phone.cover--lg { width: 170px; height: 360px; }
+  .cover--lg .mini-phone__screen { font-size: 11px; padding: 0 8px 18px; }
+  .cover--lg .mini-phone__status { height: 32px; font-size: 10.5px; }
+}
+.prod .mini-phone__screen { font-size: 10px; }
+.prod__media:has(.badge) .cover--phone { margin-left: 90px; }
+@media (max-width: 1040px) {
+  .pdp__media:has(.badge) .cover--phone { margin-left: 90px; }
+}
+.prod .mini-phone__screen { padding: 0 7px 15px; }
 @media (max-width: 760px) {
-  .prod__media:has(.cover--phone) { height: 226px; }
-  .prod .cover--phone { width: 136px; height: 204px; }
-  .prod .mini-phone__screen { font-size: 8.5px; padding-top: 14px; }
+  .prod__media .badge { top: 10px; left: 10px; padding: 4px 8px; font-size: 9.5px; }
 }

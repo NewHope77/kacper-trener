@@ -56,11 +56,11 @@
   }
   function coverHtml(p, opts) {
     if (p.look === 'chat') {
-      return '<div class="cover cover--phone" aria-hidden="true"><div class="mini-phone"><div class="mini-phone__screen">' +
-        '<div class="bubble bubble--in">Jak minął tydzień? Ile cm udało się zrzucić?</div><div class="bubble bubble--out">Kolejne −2 cm w talii, wszystko super!</div>' +
+      return '<div class="cover cover--phone" aria-hidden="true"><div class="mini-phone"><div class="mini-phone__screen"><div class="mini-phone__status"><b>9:41</b><span class="mini-phone__island"></span><svg viewBox="0 0 34 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4" y="5.5" width="3" height="6.5" rx="1"/><rect x="8" y="3" width="3" height="9" rx="1"/><rect x="12" y="0.5" width="3" height="11.5" rx="1"/><rect x="19" y="1" width="13" height="10" rx="3" fill="none" stroke="currentColor"/><rect x="20.5" y="2.5" width="10" height="7" rx="1.6"/><rect x="32.6" y="4.2" width="1.4" height="3.6" rx=".7"/></svg></div>' +
+        '<div class="chat-head"><b>Kacper</b><small>trener</small></div><div class="bubble bubble--in">Jak minął tydzień? Ile cm udało się zrzucić?</div><div class="bubble bubble--out">Kolejne −2 cm w talii, wszystko super!</div>' +
         '<div class="mini-phone__bar"><span></span>Raport tygodniowy</div></div></div></div>';
     }
-    return '<div class="cover cover--phone" aria-hidden="true"><div class="mini-phone"><div class="mini-phone__screen"><div class="sheet"><div class="sheet__head"><b>' + esc(p.sheet_head[0]) + '</b><i>' + esc(p.sheet_head[1]) + '</i></div><div data-sheet-rows>' + sheetRows(rowsOf(p, opts)) + '</div></div>' +
+    return '<div class="cover cover--phone" aria-hidden="true"><div class="mini-phone"><div class="mini-phone__screen"><div class="mini-phone__status"><b>9:41</b><span class="mini-phone__island"></span><svg viewBox="0 0 34 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4" y="5.5" width="3" height="6.5" rx="1"/><rect x="8" y="3" width="3" height="9" rx="1"/><rect x="12" y="0.5" width="3" height="11.5" rx="1"/><rect x="19" y="1" width="13" height="10" rx="3" fill="none" stroke="currentColor"/><rect x="20.5" y="2.5" width="10" height="7" rx="1.6"/><rect x="32.6" y="4.2" width="1.4" height="3.6" rx=".7"/></svg></div><div class="sheet"><div class="sheet__head"><b>' + esc(p.sheet_head[0]) + '</b><i>' + esc(p.sheet_head[1]) + '</i></div><div data-sheet-rows>' + sheetRows(rowsOf(p, opts)) + '</div></div>' +
       '<div class="mini-phone__bar"><span></span>Arkusz Google + PDF</div></div></div></div>';
   }
 

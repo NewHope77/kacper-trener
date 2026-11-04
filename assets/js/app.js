@@ -44,15 +44,24 @@
   }
   var CHECK_ANIM = '<div class="check-anim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>';
 
+  function sheetRows(rows) {
+    return (rows || []).map(function (r) { return '<div class="sheet__row"><b>' + esc(r[0]) + '</b><i>' + esc(r[1]) + '</i></div>'; }).join('');
+  }
+  function rowsOf(p, opts) {
+    var rows = p.rows;
+    (p.groups || []).forEach(function (g) {
+      g.options.forEach(function (o, i) { if (o.rows && (opts ? opts[g.key] === o.v : !rows && i === 0)) rows = o.rows; });
+    });
+    return rows || p.groups[0].options[0].rows;
+  }
   function coverHtml(p, opts) {
-    var img = p.img;
-    (p.groups || []).forEach(function (g) { g.options.forEach(function (o) { if (opts && o.img && opts[g.key] === o.v) img = o.img; }); });
     if (p.look === 'chat') {
       return '<div class="cover cover--phone" aria-hidden="true"><div class="mini-phone"><div class="mini-phone__screen">' +
         '<div class="bubble bubble--in">Jak minął tydzień? Ile cm udało się zrzucić?</div><div class="bubble bubble--out">Kolejne −2 cm w talii, wszystko super!</div>' +
         '<div class="mini-phone__bar"><span></span>Raport tygodniowy</div></div></div></div>';
     }
-    return '<div class="pcover" aria-hidden="true"><img src="' + root + 'assets/img/real/' + img + '" alt=""><span class="pcover__tag">' + esc(p.tag) + '</span><b class="pcover__title">' + esc(p.cover[0]) + '</b></div>';
+    return '<div class="cover cover--phone" aria-hidden="true"><div class="mini-phone"><div class="mini-phone__screen"><div class="sheet"><div class="sheet__head"><b>' + esc(p.sheet_head[0]) + '</b><i>' + esc(p.sheet_head[1]) + '</i></div><div data-sheet-rows>' + sheetRows(rowsOf(p, opts)) + '</div></div>' +
+      '<div class="mini-phone__bar"><span></span>Arkusz Google + PDF</div></div></div></div>';
   }
 
   /* ---------- home offer: two tabs on phones ---------- */
@@ -217,18 +226,16 @@
     });
   });
 
-  /* ---------- product page: the picture follows the chosen plan ---------- */
+  /* ---------- product page: the sheet on the phone follows the chosen plan ---------- */
   $$('[data-buy]').forEach(function (f) {
     var data = P[f.getAttribute('data-buy')];
-    var pic = $('.pdp__media [data-cover-img]'), title = $('.pdp__media [data-cover-title]');
-    if (!data || !pic) return;
+    var box = $('.pdp__media [data-sheet-rows]');
+    if (!data || !box) return;
     $$('input[type="radio"]', f).forEach(function (i) {
       i.addEventListener('change', function () {
         data.groups.forEach(function (g) {
           g.options.forEach(function (o) {
-            if (g.key !== i.name || o.v !== i.value || !o.img) return;
-            pic.src = root + 'assets/img/real/' + o.img;
-            if (title) title.textContent = o.note || data.cover[0];
+            if (g.key === i.name && o.v === i.value && o.rows) box.innerHTML = sheetRows(o.rows);
           });
         });
       });
@@ -390,7 +397,7 @@
       function render() {
         var items = lines.map(function (l) {
           var p = P[l.id];
-          return '<div class="sum-item"><div class="sum-item__media">' + coverHtml(p, l.opts) + '</div><div><b>' + esc(p.name) + '</b><small>' + esc(optLabels(l.id, l.opts)) + '</small>' +
+          return '<div class="sum-item"><div class="sum-item__media"><span class="sum-item__ico">' + icon(p.icon) + '</span></div><div><b>' + esc(p.name) + '</b><small>' + esc(optLabels(l.id, l.opts)) + '</small>' +
             '<small>' + (p.kind === 'service' ? 'Formularz startowy na e-mail od razu' : 'Arkusz i poradnik PDF na e-mail od razu po płatności') + '</small></div>' +
             '<span class="sum-item__price">' + money(priceOf(l.id, l.opts)) + '</span></div>';
         }).join('');

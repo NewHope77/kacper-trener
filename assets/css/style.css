@@ -1848,3 +1848,14 @@ a.contact-card:hover { border-color: var(--accent-deep); transform: translateY(-
 @media (max-width: 760px) {
   .prod__media .badge { top: 10px; left: 10px; padding: 4px 8px; font-size: 9.5px; }
 }
+
+/* v8: result on two lines on every card, so the name and text stay level across a row (Julka has a long second line) */
+.meta__result { flex-direction: column; align-items: flex-start; gap: 5px; }
+.meta__result b small { font-size: .45em; font-weight: 800; letter-spacing: 0; margin-right: 2px; }
+.meta__result span { font-size: 14.5px; line-height: 1.25; }
+@media (max-width: 760px) {
+  .metas .meta__result span { font-size: 14px; min-height: 2.5em; }
+}
+@media (max-width: 360px) {
+  .metas .meta__result b { font-size: 26px; white-space: nowrap; }
+}
